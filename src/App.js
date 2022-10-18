@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import Posts from "./Posts/Posts";
 import MyButton from "./UI/MyButton/MyButton";
 import MyInput from "./UI/MyInput/MyInput";
 import PopUp from "./UI/PopUp/PopUp";
@@ -7,12 +8,13 @@ import PopUp from "./UI/PopUp/PopUp";
 function App() {
   let [count, setCount] = useState(0);
   let [value, setValue] = useState('');
-  let [popUp, setPopUp] = useState(false)
+  let [popUp, setPopUp] = useState(false);
+  
 
   const increment = () => {
     setCount(++count)
   }
-
+  
   return (
     <div className="App">
       <div>{count}</div>
@@ -30,7 +32,7 @@ function App() {
         <MyButton/>
         
       </PopUp>
- 
+      <Posts/>
     </div>
   );
 }
