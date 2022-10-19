@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function PostItem(post1) {
+export default function PostItem(props) {
   return (
-    <div>{post1.id}. {post1.title}
-    <div>{post1.body}</div>
+    <div>{props.post.id}. {props.post.title}
+    <div>{props.post.body}</div>
     </div>
   )
 }

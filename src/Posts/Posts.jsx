@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PostService from '../Api/PostService';
+import MySelect from '../UI/MySelect/MySelect';
 import PostItem from './PostItem';
 import PostList from './PostList';
 
@@ -8,6 +9,7 @@ import PostList from './PostList';
 export default function Posts() {
 
     let [ posts, setPosts] = useState([])
+    let [selectedSort, setSelectedSort] = useState('')
 
     async function fetchPosts() {
     const postss = await PostService.getAll();
@@ -16,17 +18,28 @@ export default function Posts() {
 
   useEffect(() => {
     fetchPosts()
-    console.log(posts);
+   
   }, [])
 
-
+  const sortPosts = (sort) => {
+    setSelectedSort(sort);
+    setPosts([...posts].sort((a,b) => a[sort].localeCompare(b[sort])))
+  }
   
 
   return (
     <div>
-        {posts.map((post) =>
-          <PostItem key = {post.id} post1 = {post} />
-        )}
+      <MySelect
+        value = {selectedSort}
+        onChange = {sortPosts}
+        defaultValue = 'Sort'
+        options = {[
+          {value: 'title', name: 'by title'},
+          {value: 'body', name: 'by body'},
+        ]}
+      />
+      <PostList posts = {posts}/>
+
     </div>
   )
 }

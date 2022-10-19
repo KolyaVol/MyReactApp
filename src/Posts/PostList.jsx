@@ -1,13 +1,13 @@
 import React from 'react'
+import PostItem from './PostItem'
 
-export default function PostList(posts) {
-  const result = posts.map((post) =>
-          <PostList key = {post.id} />
-        )
-
+export default function PostList(props) {
+ 
   return (
     <div>
-        {result}
+        {props.posts.map(post =>
+          <PostItem key = {post.id} post = {post}/>
+        )}
     </div>
   )
 }
