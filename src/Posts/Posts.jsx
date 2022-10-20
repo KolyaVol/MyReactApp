@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import MyInput from '../UI/MyInput/MyInput';
 import PostService from '../Api/PostService';
 import MySelect from '../UI/MySelect/MySelect';
-import PostItem from './PostItem';
 import PostList from './PostList';
-
+import { usePosts } from '../hooks/usePosts';
 
 
 export default function Posts() {
 
     let [ posts, setPosts] = useState([])
     let [selectedSort, setSelectedSort] = useState('')
+    let [filter, setFilter] = useState({sort: '', query: ''})
+    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
     async function fetchPosts() {
     const postss = await PostService.getAll();
@@ -38,7 +40,12 @@ export default function Posts() {
           {value: 'body', name: 'by body'},
         ]}
       />
-      <PostList posts = {posts}/>
+      <MyInput
+        value={filter.query}
+        onChange={e => setFilter({...filter, query: e.target.value})}
+        placeholder="Search..."
+      />
+      <PostList posts = {sortedAndSearchedPosts}/>
 
     </div>
   )
