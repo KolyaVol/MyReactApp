@@ -18,6 +18,10 @@ export default function Posts() {
     setPosts(postss)
   }
 
+  const removePost = (post) => {
+    setPosts(posts.filter(p => p.id !== post.id))
+  }
+
   useEffect(() => {
     fetchPosts()
    
@@ -28,6 +32,9 @@ export default function Posts() {
     setPosts([...posts].sort((a,b) => a[sort].localeCompare(b[sort])))
   }
   
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost])
+  }
 
   return (
     <div>
@@ -40,12 +47,13 @@ export default function Posts() {
           {value: 'body', name: 'by body'},
         ]}
       />
+      
       <MyInput
         value={filter.query}
         onChange={e => setFilter({...filter, query: e.target.value})}
         placeholder="Search..."
       />
-      <PostList posts = {sortedAndSearchedPosts}/>
+      <PostList remove = {removePost} posts = {sortedAndSearchedPosts}/>
 
     </div>
   )
