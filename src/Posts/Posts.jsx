@@ -4,24 +4,33 @@ import PostService from '../Api/PostService';
 import MySelect from '../UI/MySelect/MySelect';
 import PostList from './PostList';
 import { usePosts } from '../hooks/usePosts';
-
-
+import getPageCount, { getPagesArray } from '../pages';
 export default function Posts() {
 
     let [ posts, setPosts] = useState([])
     let [selectedSort, setSelectedSort] = useState('')
     let [filter, setFilter] = useState({sort: '', query: ''})
+    let [totalPages, setTotalPages] = useState(0)
+    let [limit, setLimit] = useState(10)
+    let [page, setPage] = useState(1)
+
+    let pagesArray = getPagesArray(totalPages)
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
+
     async function fetchPosts() {
-    const postss = await PostService.getAll();
-    setPosts(postss)
+    const response = await PostService.getAll(limit, page);
+    setPosts(response.data)
+    const totalCount = response.headers['x-total-count']
+    setTotalPages(getPageCount(totalCount, limit))
   }
 
+
+  console.log(totalPages);
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id !== post.id))
-  }
-
+  }   
+  console.log(pagesArray);
   useEffect(() => {
     fetchPosts()
    
@@ -54,7 +63,8 @@ export default function Posts() {
         placeholder="Search..."
       />
       <PostList remove = {removePost} posts = {sortedAndSearchedPosts}/>
-
+        {pagesArray.map (p => 
+          <button key={p} onClick={() => setPage(p)}>{p}</button>)}
     </div>
   )
 }
