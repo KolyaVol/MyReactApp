@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import About from "./Pages/About";
 import Posts from "./Posts/Posts";
 import MyButton from "./UI/MyButton/MyButton";
 import MyInput from "./UI/MyInput/MyInput";
@@ -16,7 +18,15 @@ function App() {
   }
   
   return (
-    <div className="App">
+    <BrowserRouter>
+    <Routes>
+      <Route path="/posts" element = {<Posts/>}>
+      </Route>
+      <Route path="/about" element = {<About/>}>
+      </Route>
+    </Routes>
+      
+        
       <div>{count}</div>
       <div>{value}</div>
 
@@ -33,7 +43,9 @@ function App() {
         
       </PopUp>
       <Posts/>
-    </div>
+
+      
+    </BrowserRouter>
   );
 }
 

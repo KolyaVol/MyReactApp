@@ -34,7 +34,7 @@ export default function Posts() {
   useEffect(() => {
     fetchPosts()
    
-  }, [])
+  }, [page])
 
   const sortPosts = (sort) => {
     setSelectedSort(sort);
