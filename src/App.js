@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AppRouter from "./AppRouter";
 import About from "./Pages/About";
 import Posts from "./Posts/Posts";
 import MyButton from "./UI/MyButton/MyButton";
@@ -18,15 +19,8 @@ function App() {
   }
   
   return (
-    <BrowserRouter>
-    <Routes>
-      <Route path="/posts" element = {<Posts/>}>
-      </Route>
-      <Route path="/about" element = {<About/>}>
-      </Route>
-    </Routes>
-      
-        
+    <div>
+      <AppRouter/>
       <div>{count}</div>
       <div>{value}</div>
 
@@ -45,7 +39,7 @@ function App() {
       <Posts/>
 
       
-    </BrowserRouter>
+    </div>
   );
 }
 
