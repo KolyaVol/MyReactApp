@@ -5,7 +5,7 @@ import MySelect from '../UI/MySelect/MySelect';
 import PostList from './PostList';
 import { usePosts } from '../hooks/usePosts';
 import getPageCount, { getPagesArray } from '../pages';
-import { Link } from 'react-router-dom';
+import { Link, Router } from 'react-router-dom';
 export default function Posts() {
 
     let [ posts, setPosts] = useState([])
@@ -46,8 +46,14 @@ export default function Posts() {
     setPosts([...posts, newPost])
   }
 
+
+
+
+
   return (
     <div>
+
+      
       <MySelect
         value = {selectedSort}
         onChange = {sortPosts}
@@ -66,7 +72,7 @@ export default function Posts() {
       <PostList remove = {removePost} posts = {sortedAndSearchedPosts}/>
         {pagesArray.map (p => 
           <button key={p} onClick={() => setPage(p)}>{p}</button>)}
-          <Link to = '/posts/:id'></Link>
+          
     </div>
   )
 }

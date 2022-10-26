@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, NavLink, Route, Routes } from "react-router-dom";
 import AppRouter from "./AppRouter";
 import About from "./Pages/About";
 import Posts from "./Posts/Posts";
@@ -20,10 +20,11 @@ function App() {
   
   return (
     <div>
+      
       <AppRouter/>
       <div>{count}</div>
       <div>{value}</div>
-
+       
       <MyButton onClick = {increment}>Button</MyButton>
       <MyInput 
       value={value}
